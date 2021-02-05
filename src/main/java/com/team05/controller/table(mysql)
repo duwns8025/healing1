@@ -1,0 +1,126 @@
+-- 유저 테이블
+create table users(
+    userId VARCHAR(50) primary key , 
+    userPwd VARCHAR(50),
+    userName VARCHAR(50) not null,
+    userAge int(10),
+    phone VARCHAR(50),
+    email VARCHAR(50) not null,
+   	email2 VARCHAR(50) not null,
+    addrBasic VARCHAR(100),
+    addrDetail VARCHAR(100),
+    zipNo VARCHAR(50),
+    regdate timestamp default current_timestamp
+);
+
+
+-- 고객센터 테이블
+create table qboard(
+    qno int(10) primary key auto_increment, -- pk
+    qtitle VARCHAR(100)  not null,
+    qcontent VARCHAR(500) not null,
+    regdate timestamp default current_timestamp,
+    updatedate timestamp default current_timestamp,
+    qid VARCHAR(50) not null 
+);
+-- 고객센터 댓글 테이블
+create table reply(
+    rno int(10) primary key auto_increment,
+    rcontent VARCHAR(500) not null,
+    regdate timestamp default current_timestamp,
+    updatedate timestamp default current_timestamp,
+    qno int(10) not null, 
+    rid VARCHAR(50) not null 
+);
+
+-- 공지사항 테이블
+create table noticeboard(
+    bno int(10) primary key auto_increment, -- pk
+    title VARCHAR(100) not null,
+    writer VARCHAR(50) not null, 
+    content VARCHAR(500) not null,
+    regdate timestamp default current_timestamp,
+    updatedate timestamp default current_timestamp
+);
+
+-- 예약정보 테이블
+create table reservation(
+    resno int(10) primary key auto_increment,
+    checkin  VARCHAR(30) not null,
+    checkout VARCHAR(30) not null,
+    price VARCHAR(30) not null,
+    reserve_type varchar(30) not null, 
+    regdate timestamp default current_timestamp, 
+    id VARCHAR(50) not null, 
+    pro_no int(10) not null, 
+    room_no int(10) not null
+);
+
+-- 상품(호텔, 모텔) 테이블
+create table product(
+    pro_no int(10) primary key auto_increment, -- pk
+    name VARCHAR(50) ,
+    tel VARCHAR(50) ,
+    basic_address VARCHAR(100) ,
+    detail_address varchar(100),
+    pro_type VARCHAR(30) , 
+    rental_price int(10) , 
+    half_price int(10) , 
+    uploadpath varchar(200) ,
+    filename varchar(50) ,
+    filerealname varchar(50) ,
+    fileloca varchar(50) ,
+    regdate timestamp default current_timestamp,
+    latitude varchar(30),
+    hardness varchar(30)
+);
+-- 리뷰 테이블
+create table review(
+    renum int(10) primary key auto_increment, 
+    id VARCHAR(50) not null, 
+    pro_no int(10) not null, 
+    score int(10) not null, 
+    content VARCHAR(100) not null,
+    title varchar(100) not null,
+    uploadpath varchar(200) not null,-- 호텔 사진
+    filename varchar(50) ,
+    filerealname varchar(50),
+    fileloca varchar(50),
+    regdate timestamp default current_timestamp,
+    updatedate timestamp default current_timestamp
+);
+
+
+
+-- 객실 정보
+create table room(
+    room_no int(10) primary key auto_increment, 
+    title VARCHAR(50),
+    checkin VARCHAR(50) ,
+    checkout VARCHAR(50),
+    rental_price int(10), 
+    half_time varchar(50), 
+    half_price int(10),  
+    pro_no int(10), 
+    filename varchar(20),
+    fileloca varchar(20)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
