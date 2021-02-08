@@ -145,7 +145,6 @@ public class SearchController {
 		System.out.println(searchNameVO.toString());
 		
 		ArrayList<ProductVO> productlist=searchService.searchname(searchNameVO);
-		
 		model.addAttribute("productlist", productlist);
 		model.addAttribute("searchNameVO",searchNameVO);
 		return "search/search_room";
@@ -166,6 +165,7 @@ public class SearchController {
 						@RequestParam("title") String title,
 						@RequestParam("content") String content,HttpSession session) {
 		try {
+			
 			UserVO uservo=(UserVO)session.getAttribute("userVO");
 			String writer=uservo.getUserId();
 			Date date = new Date();

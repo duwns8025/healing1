@@ -16,7 +16,7 @@
 		and basic_address like concat('%',#{city},'%') and basic_address like
 		concat('%',#{gu},'%')
 		<![CDATA[
-		and rental_price <=#{price2} and rental_price >=#{price1}
+		and rental_price <=#{price2} and rental_price >=#{price1} 
 		]]>
 		<if test="order=='rowprice'">order by rental_price</if>
 		<if test="order=='highprice'">order by rental_price desc</if>
@@ -70,10 +70,11 @@
 		and (name like concat('%',#{searchname},'%') or basic_address like
 		concat('%',#{searchname},'%'))
 		<![CDATA[
-		and rental_price >=#{price1} and rental_price <=#{price2}
+		and rental_price >=#{price1} and rental_price <=#{price2} 
 		]]>
 		<if test="order=='rowprice'">order by rental_price</if>
-		<if test="order=='highprice'">order by rental_price desc</if>
+		<if test="order=='highprice'">order by rental_price desc</if> 
+		
 	</select>
 
 

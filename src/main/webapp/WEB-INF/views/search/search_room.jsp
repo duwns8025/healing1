@@ -279,10 +279,9 @@
     	
     </script>
     <script>
-	    window.onload = function(){
+	   window.onload = function(){ 
 	    	
 	    	var order="${searchNameVO.order}"
-
 			if(order == 'distance'){
 		    	//거리순 정렬
 		    	arr.sort(function (a, b) {
@@ -301,7 +300,7 @@
 		    		var parent=document.getElementsByClassName("product-list");
 		    		var child=document.getElementById(arr[i].name);
 		    		
-		    		parent[0].appendChild(child)
+		    		parent[0].appendChild(child);
 		    	}
 				
 			}

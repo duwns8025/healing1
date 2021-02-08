@@ -560,6 +560,7 @@
 				
 				file=file.substring(file.lastIndexOf('.')+1,file.length).toLowerCase();
 				
+				
 				if(file != 'jpg' && file !='png' && file !='jpeg'){
 					alert('이미지(jpg,png,jpeg)만 등록가능합니다')
 					return;
@@ -572,15 +573,19 @@
 				}
 				 else if(writer ==""){
 					alert('로그인이 필요한 서비스입니다')
+					location.href ="../user/login";
 					return;
-				} 
+				}else if(score == ""){
+					alert('별점은 필수입니다.')
+					return;
+				}
 				
 				var formData = new FormData();
 				var data = $("#file");
 				
 				formData.append("file",data[0].files[0]); //file이름으로 file데이터 저장
 				formData.append("pro_no",pro_no);
-				formData.append("score",score);
+				formData.append("score",score);					
 				formData.append("title",title);
 				formData.append("content",content);
 				
