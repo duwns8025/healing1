@@ -159,7 +159,7 @@ public class SearchController {
 	//파일 업로드 
 	@ResponseBody
 	@RequestMapping("upload")
-	public String upload(@RequestParam("file") MultipartFile file,
+	public String upload(@RequestParam(value="file",required = false) MultipartFile file,
 						@RequestParam("pro_no") int pro_no,
 						@RequestParam("score") int score,
 						@RequestParam("title") String title,
@@ -168,33 +168,38 @@ public class SearchController {
 			
 			UserVO uservo=(UserVO)session.getAttribute("userVO");
 			String writer=uservo.getUserId();
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			String fileloca=sdf.format(date);
-			System.out.println(fileloca);
 			
-			
-			String uploadpath = "/var/upload/"+fileloca;
-			File folder = new File(uploadpath);
-			if(!folder.exists()) { 
-				folder.mkdir(); 
+			ReviewVO vo = null;
+			if(file !=null) {
+				
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+				String fileloca=sdf.format(date);
+				
+				String uploadpath = "/var/upload/"+fileloca;
+				File folder = new File(uploadpath);
+				if(!folder.exists()) { 
+					folder.mkdir(); 
+				}
+				
+				
+				String filerealname=file.getOriginalFilename();
+				long size=file.getSize();
+				String fileExtension=filerealname.substring(filerealname.lastIndexOf("."),filerealname.length());
+				
+				UUID uuid=UUID.randomUUID();
+				String uuids=uuid.toString().replaceAll("-", "");
+				
+				String filename = uuids+fileExtension; 
+				
+				File saveFile = new File(uploadpath+"/"+filename);
+				file.transferTo(saveFile); 
+				
+				vo = new ReviewVO(0,writer,pro_no,score,content,title,uploadpath,filename,filerealname,fileloca,null,null);
+					
+			}else {
+				vo = new ReviewVO(0,writer,pro_no,score,content,title,null,null,null,null,null,null);
 			}
-			
-			
-			String filerealname=file.getOriginalFilename();
-			long size=file.getSize();
-			String fileExtension=filerealname.substring(filerealname.lastIndexOf("."),filerealname.length());
-			
-			UUID uuid=UUID.randomUUID();
-			String uuids=uuid.toString().replaceAll("-", "");
-			
-			String filename = uuids+fileExtension; 
-	
-			File saveFile = new File(uploadpath+"/"+filename);
-			file.transferTo(saveFile); 
-			
-			
-			ReviewVO vo = new ReviewVO(0,writer,pro_no,score,content,title,uploadpath,filename,filerealname,fileloca,null,null);
 			boolean result = searchService.insertReview(vo);
 			
 			if(result) {

@@ -34,7 +34,7 @@
 		from users u 
 		left join reservation r on u.userId=r.id 
 		left join product p on r.pro_no=p.pro_no 
-		where u.userId=#{userId}
+		where u.userId=#{userId} order by resno desc
 
 	</select>
 	
@@ -43,7 +43,7 @@
 		from users u 
 		left join review r on u.userId = r.id 
 		left join product p on r.pro_no=p.pro_no 
-		where u.userId=#{userId}
+		where u.userId=#{userId} order by renum desc
 	</select>
 	
 	<update id="update">

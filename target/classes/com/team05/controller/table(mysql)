@@ -82,7 +82,7 @@ create table review(
     score int(10) not null, 
     content VARCHAR(100) not null,
     title varchar(100) not null,
-    uploadpath varchar(200) not null,-- 호텔 사진
+    uploadpath varchar(200),-- 호텔 사진
     filename varchar(50) ,
     filerealname varchar(50),
     fileloca varchar(50),

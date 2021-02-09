@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- jstl 에서 length 함수 사용-->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 
 	<style>
       * {
@@ -197,29 +200,31 @@
       <div class="my-content">
         
         <c:forEach items="${reservelist}" var="reserve">
-	        <div class="reserve">
-	          <div class="motelimg">
-	            <img src="../search/display/${reserve.fileloca}/${reserve.filename}">
-	          </div>
-	          <div class="left">
-	            <h4 style="margin-bottom: 25px">
-	            	<a href="../search/room_info?pro_no=${reserve.pro_no}">${reserve.name}</a>
-	            </h4>
-	            
-	            <p>예약날짜</p>
-	            <p>체크인</p>
-	            <p>체크아웃</p>
-	           
-	          </div>
-	          <div class="right">
-	            <h3 style="margin: 0">${reserve.price}원</h3>
-	            <h4>${reserve.reserve_type=='half'?'대실':'숙박'}</h4>
-	            <p>${reserve.regdate}</p>
-	            <p>${reserve.checkin}:00시</p>
-	            <p>${reserve.checkout}:00시</p>
-	            
-	          </div>
-	        </div>
+        	<c:if test="${reserve !=null}">
+		        <div class="reserve">
+		          <div class="motelimg">
+		            <img src="../search/display/${reserve.fileloca}/${reserve.filename}">
+		          </div>
+		          <div class="left">
+		            <h4 style="margin-bottom: 25px">
+		            	<a href="../search/room_info?pro_no=${reserve.pro_no}">${reserve.name}</a>
+		            </h4>
+		            
+		            <p>예약날짜</p>
+		            <p>체크인</p>
+		            <p>체크아웃</p>
+		           
+		          </div>
+		          <div class="right">
+		            <h3 style="margin: 0">${reserve.price}원</h3>
+		            <h4>${reserve.reserve_type=='half'?'대실':'숙박'}</h4>
+		            <p>${reserve.regdate}</p>
+		            <p>${reserve.checkin}:00시</p>
+		            <p>${reserve.checkout}:00시</p>
+		            
+		          </div>
+		        </div>
+	        </c:if>
         </c:forEach>
         
       </div>
@@ -233,22 +238,24 @@
       <hr style="margin-bottom: 10px;">
       <div class="my-content">
       	<c:forEach items="${reviewlist}" var="review">
-	        <div class="reserve">
-	          <div class="motelimg">
-	            <img src="../search/display/${review.fileloca}/${review.filename}" alt="">
-	          </div>
-	          <div class="left">
-	            <h4>${review.name }</h4>
-	            <p>
-	              <span><em>9.0</em></span>
-	            </p>
-	            <p>전화번호:${review.tel}</p>
-	          </div>
-	          <div class="right">
-	            <p><strong>${review.title }</strong></p>
-	            <p>${review.content }</p>
-	          </div>
-	        </div>
+      		<c:if test="${review !=null}">
+		        <div class="reserve">
+		          <div class="motelimg">
+		            <img src="../search/display/${review.fileloca}/${review.filename}" onerror="noImage();">
+		          </div>
+		          <div class="left">
+		            <h4><a href="../search/room_info?pro_no=${review.pro_no}">${review.name }</a></h4>
+		            <p>
+		              <span>${review.regdate }</span>
+		            </p>
+		            <p>전화번호:${review.tel}</p>
+		          </div>
+		          <div class="right">
+		            <p><strong>${review.title }</strong></p>
+		            <p>${review.content }</p>
+		          </div>
+		        </div>
+	        </c:if>
         </c:forEach>
       </div>
       <hr>
@@ -386,6 +393,12 @@
 			
 		}) */
 		
+		
+		 //이미지 로드 안될시 
+		function noImage(){
+        	/* event.target.style.display ="none"; */
+        	event.target.parentNode.style.display ="none"; 
+        }
 		
 		
 	</script>

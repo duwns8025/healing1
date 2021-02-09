@@ -199,7 +199,15 @@
         #star_grade a.on{
             color: darkgoldenrod;
         }
-
+        
+        /* 이미지 */
+        #reviewlist img{
+        	width: 300px;
+        	height: 200px;
+        	
+       		
+        }
+      
         @media (max-width: 767px){
             .room-img{
                 display: none;
@@ -401,9 +409,7 @@
                         	<div>
                                 <img src="98eee517dd344e7bfc4cb1dc1688e7eb.jpg" width="300px" height="200px">
                             </div>
-                            <div class="img">
-                                <img src="human.png" alt="">
-                            </div>
+                            
                             <p>
                                 <strong>제목</strong>
                             </p>
@@ -436,11 +442,11 @@
                         <div class="reply-content">
                             
                             <p id="star_grade">
-                                <a href="#" data-star="1">★</a>
-                                <a href="#" data-star="2">★</a>
-                                <a href="#" data-star="3">★</a>
-                                <a href="#" data-star="4">★</a>
-                                <a href="#" data-star="5">★</a>
+                                <a data-star="1">★</a>
+                                <a data-star="2">★</a>
+                                <a data-star="3">★</a>
+                                <a data-star="4">★</a>
+                                <a data-star="5">★</a>
                                 <span style="font-size: 20px;">나의별점:</span>
                                 <strong id="star-result" style="font-size: 20px;"></strong>
                                 
@@ -559,11 +565,16 @@
 				var content = $("#comment").val()
 				
 				file=file.substring(file.lastIndexOf('.')+1,file.length).toLowerCase();
+				var formData = new FormData();
+				var data = $("#file");
 				
-				
-				if(file != 'jpg' && file !='png' && file !='jpeg'){
-					alert('이미지(jpg,png,jpeg)만 등록가능합니다')
-					return;
+				if(file !=""){
+					if(file != 'jpg' && file !='png' && file !='jpeg'){
+						alert('이미지(jpg,png,jpeg)만 등록가능합니다')
+						return;					
+					}else{
+						formData.append("file",data[0].files[0]);						
+					}
 				}else if(title ==""){
 					alert("제목을 입력해주세요")
 					return;
@@ -580,10 +591,6 @@
 					return;
 				}
 				
-				var formData = new FormData();
-				var data = $("#file");
-				
-				formData.append("file",data[0].files[0]); //file이름으로 file데이터 저장
 				formData.append("pro_no",pro_no);
 				formData.append("score",score);					
 				formData.append("title",title);
@@ -641,11 +648,9 @@
 					for(var i=0; i<list.length; i++){
 						str+='<li class="pic">'
 						str+='<div>'
-						str+='<img src=display/'+list[i].fileloca+"/"+list[i].filename+' width="300px" height="200px">'
+						str+='<img src=display/'+list[i].fileloca+"/"+list[i].filename+' onerror="noImage()"'+'>'
 						str+='</div>'
-						str+='<div class="img">'
-						str+='<img src="human.png" alt="">'
-						str+='</div>'
+						
 						str+='<p>'
 						str+='<strong>'+list[i].title+'</strong>'
 						str+='</p>'
@@ -706,7 +711,13 @@
         })
         
         
-        
+        //이미지 로드 안될시 
+		function noImage(){
+        	/* event.target.style.display ="none"; */
+        	event.target.parentNode.style.display ="none"; 
+        }
+
+
         
         
     </script>
