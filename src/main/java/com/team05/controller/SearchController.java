@@ -234,7 +234,7 @@ public class SearchController {
 			mean = (double)total /count;			
 		}
 		
-		
+		System.out.println(searchService.getreview(cri,pro_no).toString());
 		map.put("count", count);
 		map.put("mean",mean);
 		map.put("list",searchService.getreview(cri,pro_no));

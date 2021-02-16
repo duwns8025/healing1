@@ -36,7 +36,7 @@
 	<select id="getreview" resultType="ReviewVO">
 		<![CDATA[
 		select renum,id,pro_no,score,content,title,uploadpath,filename,filerealname,fileloca,regdate,updatedate from 
-		(select @rownum:=@rownum+1 as rn,r.* from (select * from review where pro_no=#{pro_no} order by renum desc) r) b,(select @rownum :=0) as rn
+		(select @rownum:=@rownum+1 as rn,r.* from (select * from review where pro_no=#{pro_no} order by renum desc) r,(select @rownum :=0) as rnn) b
 		where rn> (#{cri.pageNum}-1)*#{cri.amount} and rn <=#{cri.pageNum}*#{cri.amount}
 		]]>
 	</select>

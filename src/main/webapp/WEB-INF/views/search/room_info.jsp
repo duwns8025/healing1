@@ -392,7 +392,7 @@
             <div id="menu2" class="tab-pane fade">
                 <div class="review">
                     <div class="score-top">
-                        <strong style="padding-bottom: 10px;">추천해요</strong>
+                        <strong style="padding-bottom: 10px; font-size: 24px" id="review_recom"></strong>
 
                         <div class="score-wrap">
                             <div class="score-star star-45"></div>
@@ -512,10 +512,11 @@
 	            map: map,
 	            position: coords
 	        });
-	
+	        
+	        
 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
 	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+protitle+'</div>'
+	            content:'<div style="width:150px;text-align:center;padding:6px 0;">'+protitle+'</div>'+'<div style="text-align:center;"><a href="https://map.kakao.com/link/to/'+protitle+','+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>'
 	        });
 	        infowindow.open(map, marker);
 	
@@ -568,28 +569,30 @@
 				var formData = new FormData();
 				var data = $("#file");
 				
-				if(file !=""){
+				if(writer ==""){
+					alert('로그인이 필요한 서비스입니다')
+					location.href ="../user/login";
+					return;
+					
+				}else if(content ==""){
+					alert("내용을 입력해주세요")
+					return;
+				}else if(title ==""){
+					alert("제목을 입력해주세요")
+					return;
+				}else if(score == ""){
+					alert('별점은 필수입니다.')
+					return;
+				}else if(file !=""){
 					if(file != 'jpg' && file !='png' && file !='jpeg'){
 						alert('이미지(jpg,png,jpeg)만 등록가능합니다')
 						return;					
 					}else{
 						formData.append("file",data[0].files[0]);						
 					}
-				}else if(title ==""){
-					alert("제목을 입력해주세요")
-					return;
-				}else if(content ==""){
-					alert("내용을 입력해주세요")
-					return;
 				}
-				 else if(writer ==""){
-					alert('로그인이 필요한 서비스입니다')
-					location.href ="../user/login";
-					return;
-				}else if(score == ""){
-					alert('별점은 필수입니다.')
-					return;
-				}
+				
+				
 				
 				formData.append("pro_no",pro_no);
 				formData.append("score",score);					
@@ -634,6 +637,14 @@
 					var mean = map.mean;
 					$("#review_count").html(count);
 					$("#review_mean").html(mean.toFixed(2));
+					if(mean >=4){
+						$("#review_recom").html("추천해요");
+					}else if(mean>=3){
+						$("#review_recom").html("보통이에요");
+					}else{
+						$("#review_recom").html("비추에요");
+					}
+						
 					if(reset){
 						str="";
 						pageNum=1;
@@ -654,19 +665,18 @@
 						str+='<p>'
 						str+='<strong>'+list[i].title+'</strong>'
 						str+='</p>'
-						str+='<div class="score-wrap">'
-						str+='<div class="score-star star-45"></div>'
-						str+='<div class="num">'+list[i].score+".0"+'</div>'
-						str+='</div>'
-						str+='<div class="name">'
-						str+='<b>스탠다드 객실이용고객.</b>'
-						str+='<strong>'+list[i].id+'</strong>'
-						str+='</div>'
-						str+='<div class="txt">'
+						str+='<div class="txt" style="padding-bottom:10px">'
 						str+=list[i].content
 						str+='</div>'
-						str+='<div class="date">'
-						str+='<span>'+timeStamp(list[i].regdate)+'</span>'
+						
+						str+='<div class="score-wrap">'
+						str+='<div class="score-star star-45"></div>'
+						str+='<div class="num">'+'('+list[i].score+".0"+')'+' <strong>'+list[i].id+'</strong>'+'</div>'
+						str+='</div>'
+						
+						
+						str+='<div class="date" style="padding-top:3px">'
+						str+='<span style="color:#777;">'+timeStamp(list[i].regdate)+'</span>'
 						str+='</div>'
 						str+='</li>'
 					}

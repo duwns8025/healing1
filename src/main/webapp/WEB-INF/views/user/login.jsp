@@ -113,7 +113,7 @@ $("#loginBtn").click(function() {
 	//카카오 SDK초기화
 	//f80c539288e6a1c0860c93c58b8a3cc1
 	//https://www.youtube.com/watch?v=Re2R2rid1K4&ab_channel=%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98%ED%92%88%EA%B2%A9
-	window.Kakao.init('f80c539288e6a1c0860c93c58b8a3cc1');
+	window.Kakao.init('e241709d1f1d420df0ca23104f9b9a3c');
 	console.log('카카오SDK 초기화여부: ', Kakao.isInitialized());//SDK초기화 여부를 판단
 </script>
 

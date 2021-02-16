@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/reservation.css">
+    <style>
+		body{padding-top: 100px}	
+	</style>
     <section>
       <!-- 부트스트랩: class="container" -->
       <div class="container">
@@ -12,9 +15,7 @@
             <form action="reservationForm" name="reservepayment">
               <div class="res-content">
 
-                <div class="left">
-                  <img src="img/res_img.jpg">
-                </div>
+                
 
                 <div class="right">
                   <div class="info">

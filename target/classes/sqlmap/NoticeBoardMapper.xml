@@ -32,8 +32,7 @@
 		<if test="searchType == null or searchType == ''">where 1 = 1</if>
 
 		<![CDATA[
-		        ORDER BY bno DESC) a
-		     ) b,(select @rownum :=0) as rn
+		        ORDER BY bno DESC) a,(select @rownum :=0) as rnn ) b
 		where rn > (#{pageNum} - 1) * #{amount} and rn <= #{pageNum} * #{amount}
 		]]>
 		
