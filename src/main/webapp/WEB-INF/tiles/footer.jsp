@@ -6,7 +6,7 @@
                 <div class="footercontent">
                     <div class="col-md-6 col-sm-6">
                         <div class="footer">
-                            <a href="#"><img src="${pageContext.request.contextPath }/resources/img/logo.svg" alt="부3" width="20"></a>
+                            <a href="#"><img src="${pageContext.request.contextPath }/resources/img/human.png" alt="부3" width="20"></a>
                             대표자 : 5조 | E-MAIL : null<br />
                             개인정보보호책임자 : 5조 | <br />
                             주소 : 서울시 강남구 IT_BANK

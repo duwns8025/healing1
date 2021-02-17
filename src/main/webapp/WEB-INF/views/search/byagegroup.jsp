@@ -41,7 +41,7 @@
 			                            			function reviewmean() {
 			                         
 			                            				$.getJSON("reviewcountMean/"+${twenty.pro_no}, function(map){
-															console.log(map.mean);
+															
 															$("#twenty${twenty.pro_no}").html(map.mean.toFixed(1));
 												
 														})
@@ -82,7 +82,7 @@
 			                            			function reviewmean1() {
 			                         
 			                            				$.getJSON("reviewcountMean/"+${thirty.pro_no}, function(map){
-															console.log(map.mean);
+															
 															$("#thirty${thirty.pro_no}").html(map.mean.toFixed(1));
 												
 														})
@@ -122,7 +122,7 @@
 			                            			function reviewmean() {
 			                         
 			                            				$.getJSON("reviewcountMean/"+${forty.pro_no}, function(map){
-															console.log(map.mean);
+															
 															$("#${forty.pro_no}").html(map.mean.toFixed(1));
 												
 														})

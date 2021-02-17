@@ -170,7 +170,7 @@ function seccess(position){
 }
 
 function fail(){
-    alert('위치정보를 얻는데 실패했습니다');
+    alert('위치정보를 얻는데 실패했습니다(Chrome 50부터 비보안 출처(예: HTTP)에서 동작되지 않습니다.)');
     alert('서울 종로 기준으로 검색합니다');
     sessionStorage.setItem("lat1", 37.5990998 );
     sessionStorage.setItem("lng1", 126.9861493 );

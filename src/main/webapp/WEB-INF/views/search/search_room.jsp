@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -100,6 +101,8 @@
 	}
     
     var arr = new Array();
+    var rank = new Array();
+   	var order="${searchNameVO.order}"
 	</script>
     
     
@@ -146,6 +149,7 @@
 	                            	<input type="radio" name="order" ${searchNameVO.order =='rowprice'?'checked':'' } value="rowprice">낮은가격순<br>
 	                                <input type="radio" name="order" ${searchNameVO.order =='highprice'?'checked':'' } value="highprice">높은가격순<br>
 	                              	<input type="radio" name="order" ${searchNameVO.order =='distance'?'checked':'' } value="distance">거리순<br>
+									<input type="radio" name="order" ${searchNameVO.order =='rank'?'checked':'' } value="rank">별점순<br>
 									
 									<input type="hidden" name="price1">
 									<input type="hidden" name="price2">
@@ -176,11 +180,36 @@
                             			function reviewmean() {
                             				
                             				$.getJSON("reviewcountMean/"+${product.pro_no}, function(map){
-												console.log(map.count);
-												console.log(map.mean);
+												
 												$("#${product.pro_no}no").parent().prev().html("("+map.count+")");
 												$("#${product.pro_no}no").parent().prev().prev().prev().children().last().html(map.mean.toFixed(1));
-									
+												
+												var obj = new Object();
+				                            	obj.name="${product.pro_no}list";
+				                            	obj.value=map.mean;
+				                            	rank.push(obj);
+				                            	
+				                          		
+				                            	if(${fn:length(productlist)}==rank.length && order =='rank'){
+				                            		
+				                            		//별점순 정렬
+			                        				rank.sort(function (a, b) {
+			                        		    		  if (a.value > b.value) {
+			                        		    		    return -1;
+			                        		    		  }
+			                        		    		  if (a.value < b.value) {
+			                        		    		    return 1;
+			                        		    		  }
+			                        		    		  // a must be equal to b
+			                        		    		  return 0;
+			                        		    	});
+			                        				
+			                    	    			for(var i=0; i<rank.length; i++){
+			                    	    		   		var parent=document.getElementsByClassName("product-list");
+			                    	    		   		var child=document.getElementById(rank[i].name);    		
+			                    	    		   		parent[0].appendChild(child)
+			                    	    		    }    	
+				                            	}
 											})
 										}	
                             	</script>
@@ -280,8 +309,7 @@
     </script>
     <script>
 	   window.onload = function(){ 
-	    	
-	    	var order="${searchNameVO.order}"
+
 			if(order == 'distance'){
 		    	//거리순 정렬
 		    	arr.sort(function (a, b) {
